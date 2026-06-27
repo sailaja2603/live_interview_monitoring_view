@@ -1,0 +1,560 @@
+/*=========================================================
+            RESPONSIVE.CSS
+    AI Live Interview Monitoring Dashboard
+=========================================================*/
+
+/*=========================================================
+                Large Screens
+=========================================================*/
+
+@media (max-width:1400px){
+
+    .analytics-grid{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+}
+
+/*=========================================================
+                Laptop
+=========================================================*/
+
+@media (max-width:1200px){
+
+    .sidebar{
+
+        width:230px;
+
+    }
+
+    .main-content{
+
+        margin-left:230px;
+        width:calc(100% - 230px);
+
+    }
+
+    .footer{
+
+        margin-left:230px;
+
+    }
+
+    .live-session{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .candidate-info{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+    .status-grid{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+}
+
+/*=========================================================
+                Tablet
+=========================================================*/
+
+@media (max-width:992px){
+
+    .sidebar{
+
+        width:90px;
+        padding:20px 10px;
+
+    }
+
+    .logo h2{
+
+        display:none;
+
+    }
+
+    .menu li{
+
+        justify-content:center;
+
+    }
+
+    .menu li span{
+
+        display:none;
+
+    }
+
+    .main-content{
+
+        margin-left:90px;
+        width:calc(100% - 90px);
+        padding:20px;
+
+    }
+
+    .footer{
+
+        margin-left:90px;
+
+    }
+
+    .topbar{
+
+        flex-direction:column;
+        align-items:flex-start;
+        gap:20px;
+
+    }
+
+    .header-right{
+
+        width:100%;
+        justify-content:space-between;
+        flex-wrap:wrap;
+
+    }
+
+    .candidate-info{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .progress-details{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .analytics-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .status-grid{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+    .metrics-section .row{
+
+        row-gap:20px;
+
+    }
+
+}
+
+/*=========================================================
+                Mobile Landscape
+=========================================================*/
+
+@media (max-width:768px){
+
+    .sidebar{
+
+        position:fixed;
+        width:100%;
+        height:auto;
+        bottom:0;
+        top:auto;
+        left:0;
+        z-index:999;
+        display:flex;
+        justify-content:center;
+        padding:12px;
+
+    }
+
+    .logo{
+
+        display:none;
+
+    }
+
+    .menu{
+
+        display:flex;
+        justify-content:space-around;
+        width:100%;
+
+    }
+
+    .menu li{
+
+        margin:0;
+        padding:10px;
+
+    }
+
+    .menu li i{
+
+        font-size:20px;
+
+    }
+
+    .menu li span{
+
+        display:none;
+
+    }
+
+    .main-content{
+
+        margin-left:0;
+        width:100%;
+        padding:15px;
+        margin-bottom:90px;
+
+    }
+
+    .footer{
+
+        margin-left:0;
+        margin-bottom:90px;
+
+    }
+
+    .page-title{
+
+        flex-direction:column;
+        align-items:flex-start;
+
+    }
+
+    .page-title h2{
+
+        font-size:24px;
+
+    }
+
+    .header-right{
+
+        flex-direction:column;
+        align-items:flex-start;
+        gap:15px;
+
+    }
+
+    .video-container{
+
+        height:320px;
+
+    }
+
+    .small-video{
+
+        width:120px;
+
+    }
+
+    .small-video img{
+
+        height:80px;
+
+    }
+
+    .video-controls{
+
+        flex-wrap:wrap;
+
+    }
+
+    .video-controls .btn{
+
+        width:48%;
+
+    }
+
+    .candidate-header{
+
+        flex-direction:column;
+        text-align:center;
+
+    }
+
+    .candidate-info{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .progress-details{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .status-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .analytics-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .timeline{
+
+        margin-left:0;
+
+    }
+
+    .timeline::before{
+
+        left:10px;
+
+    }
+
+    .timeline li{
+
+        padding-left:45px;
+
+    }
+
+}
+
+/*=========================================================
+                Small Mobile
+=========================================================*/
+
+@media (max-width:576px){
+
+    .main-content{
+
+        padding:12px;
+
+    }
+
+    .topbar{
+
+        padding:18px;
+
+    }
+
+    .timer-box{
+
+        width:100%;
+        text-align:center;
+
+    }
+
+    .recruiter-profile{
+
+        width:100%;
+
+    }
+
+    .recruiter-profile img{
+
+        width:45px;
+        height:45px;
+
+    }
+
+    .candidate-header img{
+
+        width:75px;
+        height:75px;
+
+    }
+
+    .candidate-header h3{
+
+        font-size:20px;
+
+    }
+
+    .video-container{
+
+        height:250px;
+
+    }
+
+    .camera-status{
+
+        flex-direction:column;
+        gap:8px;
+
+    }
+
+    .camera-status span{
+
+        font-size:11px;
+        padding:6px 10px;
+
+    }
+
+    .small-video{
+
+        width:90px;
+
+    }
+
+    .small-video img{
+
+        height:60px;
+
+    }
+
+    .analytics-card h2{
+
+        font-size:28px;
+
+    }
+
+    .metric-card h2{
+
+        font-size:28px;
+
+    }
+
+    .summary-box h2{
+
+        font-size:24px;
+
+    }
+
+    .timeline-content{
+
+        padding:15px;
+
+    }
+
+}
+
+/*=========================================================
+                Ultra Small Devices
+=========================================================*/
+
+@media (max-width:400px){
+
+    .page-title h2{
+
+        font-size:20px;
+
+    }
+
+    .video-controls .btn{
+
+        width:100%;
+        font-size:13px;
+
+    }
+
+    .status-card{
+
+        padding:18px;
+
+    }
+
+    .analytics-card{
+
+        padding:18px;
+
+    }
+
+    .candidate-card,
+    .resume-card,
+    .skills-card,
+    .question-card,
+    .progress-card{
+
+        padding:18px;
+
+    }
+
+    .notification-item{
+
+        flex-direction:column;
+        text-align:center;
+
+    }
+
+    .summary-box{
+
+        padding:18px;
+
+    }
+
+}
+
+/*=========================================================
+                Landscape Phones
+=========================================================*/
+
+@media (max-height:500px) and (orientation:landscape){
+
+    .sidebar{
+
+        display:none;
+
+    }
+
+    .main-content{
+
+        margin-left:0;
+        width:100%;
+
+    }
+
+    .footer{
+
+        margin-left:0;
+
+    }
+
+    .video-container{
+
+        height:280px;
+
+    }
+
+}
+
+/*=========================================================
+                Print View
+=========================================================*/
+
+@media print{
+
+    .sidebar,
+    .video-controls,
+    .notification,
+    .footer{
+
+        display:none;
+
+    }
+
+    .main-content{
+
+        margin:0;
+        width:100%;
+
+    }
+
+    body{
+
+        background:#ffffff;
+
+    }
+
+}
+
+/*=========================================================
+                End of responsive.css
+=========================================================*/

@@ -1,0 +1,551 @@
+/*==========================================================
+    INTERACTIVE.CSS
+    New Styles for Tabs, Dark Mode, AI Canvas, and Proctor Simulator
+==========================================================*/
+
+/* Tab Pane Styling */
+.tab-pane {
+    display: none !important;
+}
+.tab-pane.active-tab {
+    display: block !important;
+    animation: fadeInTab 0.5s ease-out;
+}
+
+@keyframes fadeInTab {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Dark Mode Theme Variables & Styling */
+:root {
+    --dark-bg: #0b0f19;
+    --dark-surface: #151f32;
+    --dark-surface-hover: #1e293b;
+    --dark-border: #24324d;
+    --dark-text: #f8fafc;
+    --dark-text-muted: #94a3b8;
+}
+
+/* Dark Theme Toggle Styles */
+.theme-toggle {
+    cursor: pointer;
+    font-size: 20px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f1f5f9;
+    color: #475569;
+    transition: all 0.3s ease;
+    margin-right: 15px;
+}
+.theme-toggle:hover {
+    background: #e2e8f0;
+    color: #2563eb;
+    transform: rotate(15deg);
+}
+
+.dark-theme .theme-toggle {
+    background: #1e293b;
+    color: #fbbf24;
+}
+
+/* Dark Theme Overrides */
+.dark-theme body {
+    background: var(--dark-bg) !important;
+    color: var(--dark-text) !important;
+}
+
+.dark-theme .topbar,
+.dark-theme .video-header,
+.dark-theme .video-controls,
+.dark-theme .candidate-card,
+.dark-theme .resume-card,
+.dark-theme .skills-card,
+.dark-theme .question-card,
+.dark-theme .progress-card,
+.dark-theme .status-card,
+.dark-theme .analytics-card,
+.dark-theme .monitor-card,
+.dark-theme .metric-card,
+.dark-theme .timeline-card,
+.dark-theme .notification-card,
+.dark-theme .summary-card,
+.dark-theme .summary-box,
+.dark-theme .footer,
+.dark-theme .info-item,
+.dark-theme .progress-details div,
+.dark-theme .proctor-sim-card,
+.dark-theme .scheduler-card,
+.dark-theme .code-editor-panel {
+    background: var(--dark-surface) !important;
+    border-color: var(--dark-border) !important;
+    color: var(--dark-text) !important;
+}
+
+.dark-theme .info-item:hover,
+.dark-theme .summary-box:hover,
+.dark-theme .status-card:hover,
+.dark-theme .analytics-card:hover,
+.dark-theme .timeline-content:hover {
+    background: var(--dark-surface-hover) !important;
+}
+
+.dark-theme .page-title h2,
+.dark-theme .video-header h4,
+.dark-theme .candidate-header h3,
+.dark-theme .monitor-card h4,
+.dark-theme .timeline-content h6,
+.dark-theme .notification-card h3,
+.dark-theme .summary-card h3,
+.dark-theme .footer p {
+    color: var(--dark-text) !important;
+}
+
+.dark-theme .candidate-header p,
+.dark-theme .info-item strong,
+.dark-theme .resume-card p,
+.dark-theme .question-card p,
+.dark-theme .progress-details strong,
+.dark-theme .timeline-content p,
+.dark-theme .notification-item,
+.dark-theme .monitor-card td:first-child {
+    color: var(--dark-text-muted) !important;
+}
+
+.dark-theme .notification-item {
+    background: rgba(21, 31, 50, 0.5) !important;
+    border-color: var(--dark-border) !important;
+}
+
+.dark-theme .table {
+    color: var(--dark-text) !important;
+}
+
+.dark-theme .monitor-card td {
+    border-bottom-color: var(--dark-border) !important;
+}
+
+/* AI Camera Video Container Adjustments */
+.video-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+.candidate-video, #candidateWebcam {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+/* Canvas Overlay style */
+#proctorCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    pointer-events: none;
+}
+
+/* Live speech subtitles */
+.live-transcript-bar {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #e2e8f0;
+    padding: 10px 24px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    max-width: 85%;
+    width: auto;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    z-index: 10;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    border-left: 4px solid var(--primary);
+    animation: pulseBorder 2s infinite;
+}
+
+@keyframes pulseBorder {
+    0% { border-left-color: #2563eb; }
+    50% { border-left-color: #ef4444; }
+    100% { border-left-color: #2563eb; }
+}
+
+/* Flashing red alert on proctor danger */
+.proctor-alert-flash {
+    animation: alertBorderFlash 1s infinite alternate;
+}
+
+@keyframes alertBorderFlash {
+    from {
+        box-shadow: 0 0 0 0px rgba(239, 68, 68, 0);
+        border: 1px solid #edf2f7;
+    }
+    to {
+        box-shadow: 0 0 20px 5px rgba(239, 68, 68, 0.6);
+        border: 1px solid #ef4444;
+    }
+}
+
+.dark-theme .proctor-alert-flash {
+    animation: alertBorderFlashDark 1s infinite alternate;
+}
+
+@keyframes alertBorderFlashDark {
+    from {
+        box-shadow: 0 0 0 0px rgba(239, 68, 68, 0);
+        border: 1px solid var(--dark-border);
+    }
+    to {
+        box-shadow: 0 0 20px 5px rgba(239, 68, 68, 0.7);
+        border: 1px solid #ef4444;
+    }
+}
+
+/* Live Code Editor Component Styling */
+.code-editor-panel {
+    background: #1e1e1e !important;
+    border: 1px solid #333333;
+    border-radius: 18px;
+    padding: 20px;
+    color: #d4d4d4 !important;
+    font-family: 'Consolas', 'Courier New', Courier, monospace;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    margin-top: 25px;
+    position: relative;
+    overflow: hidden;
+}
+
+.code-editor-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #333333;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.editor-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #9cdcfe;
+}
+
+.editor-dots {
+    display: flex;
+    gap: 6px;
+}
+
+.editor-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+.editor-dot.red { background: #ef4444; }
+.editor-dot.yellow { background: #f59e0b; }
+.editor-dot.green { background: #22c55e; }
+
+.code-editor-body {
+    font-size: 14px;
+    line-height: 1.6;
+    height: 280px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+}
+
+/* Syntax Highlighting Colors */
+.code-keyword { color: #569cd6; }
+.code-string { color: #ce9178; }
+.code-comment { color: #6a9955; font-style: italic; }
+.code-function { color: #dcdcaa; }
+.code-variable { color: #9cdcfe; }
+.code-number { color: #b5cea8; }
+
+/* Proctor Simulation Controller Card */
+.proctor-sim-card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 25px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 10px 25px rgba(0,0,0,.08);
+}
+
+.proctor-sim-card h4 {
+    color: #ef4444 !important;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.proctor-sim-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.btn-sim {
+    padding: 10px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.25s ease;
+}
+
+/* Candidate Management Tab styles */
+.search-filter-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.search-box {
+    position: relative;
+    flex: 1;
+    max-width: 400px;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 12px 20px 12px 45px;
+    border-radius: 30px;
+    border: 1px solid #cbd5e1;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.search-box i {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #64748b;
+}
+
+.dark-theme .search-box input {
+    background: var(--dark-surface);
+    border-color: var(--dark-border);
+    color: var(--dark-text);
+}
+
+.filter-select {
+    padding: 12px 20px;
+    border-radius: 30px;
+    border: 1px solid #cbd5e1;
+    font-size: 14px;
+    outline: none;
+    background: white;
+    cursor: pointer;
+    min-width: 160px;
+}
+
+.dark-theme .filter-select {
+    background: var(--dark-surface);
+    border-color: var(--dark-border);
+    color: var(--dark-text);
+}
+
+.candidates-table-card {
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+    overflow-x: auto;
+}
+
+.candidates-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.candidates-table th {
+    text-align: left;
+    padding: 16px;
+    border-bottom: 2px solid #e2e8f0;
+    color: #475569;
+    font-weight: 600;
+}
+
+.dark-theme .candidates-table th {
+    border-bottom-color: var(--dark-border);
+    color: var(--dark-text-muted);
+}
+
+.candidates-table td {
+    padding: 16px;
+    border-bottom: 1px solid #f1f5f9;
+    vertical-align: middle;
+}
+
+.dark-theme .candidates-table td {
+    border-bottom-color: var(--dark-border);
+}
+
+.candidates-table tr:hover {
+    background: #f8fafc;
+}
+
+.dark-theme .candidates-table tr:hover {
+    background: rgba(30, 41, 59, 0.4);
+}
+
+.avatar-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.avatar-info img {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Scheduler styles */
+.scheduler-card {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: #475569;
+    font-size: 14px;
+}
+
+.dark-theme .form-group label {
+    color: var(--dark-text-muted);
+}
+
+.form-group input, .form-group select {
+    padding: 12px 18px;
+    border-radius: 12px;
+    border: 1px solid #cbd5e1;
+    outline: none;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.dark-theme .form-group input, .dark-theme .form-group select {
+    background: var(--dark-surface);
+    border-color: var(--dark-border);
+    color: var(--dark-text);
+}
+
+.form-group input:focus, .form-group select:focus {
+    border-color: var(--primary);
+}
+
+/* Custom list of upcoming interviews */
+.upcoming-list {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.upcoming-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+
+.dark-theme .upcoming-item {
+    background: var(--dark-surface);
+    border-color: var(--dark-border);
+}
+
+.upcoming-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+}
+
+.upcoming-details h5 {
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.upcoming-details p {
+    color: #64748b;
+    font-size: 13px;
+    margin: 0;
+}
+
+.dark-theme .upcoming-details p {
+    color: var(--dark-text-muted);
+}
+
+/* Quick setting sliders */
+.settings-slider-group {
+    margin-bottom: 20px;
+}
+
+.settings-slider-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.slider-val {
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.settings-slider-group input[type="range"] {
+    width: 100%;
+    accent-color: var(--primary);
+}

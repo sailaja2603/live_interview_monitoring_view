@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Live Interview Monitoring Dashboard</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/candidate.css">
+    <link rel="stylesheet" href="css/status.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/interactive.css">
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- ================= SIDEBAR ================= -->
+    <aside class="sidebar">
+        <div class="logo">
+            <i class="fa-solid fa-brain"></i>
+            <h2>AI Recruit</h2>
+        </div>
+        <ul class="menu">
+            <li class="active" data-tab="dashboard">
+                <i class="fa-solid fa-house"></i>
+                <span>Dashboard</span>
+            </li>
+            <li data-tab="live-monitoring">
+                <i class="fa-solid fa-video"></i>
+                <span>Live Monitoring</span>
+            </li>
+            <li data-tab="candidates">
+                <i class="fa-solid fa-users"></i>
+                <span>Candidates</span>
+            </li>
+            <li data-tab="interviews">
+                <i class="fa-solid fa-calendar-days"></i>
+                <span>Interviews</span>
+            </li>
+            <li data-tab="analytics">
+                <i class="fa-solid fa-chart-line"></i>
+                <span>Analytics</span>
+            </li>
+            <li data-tab="reports">
+                <i class="fa-solid fa-file-lines"></i>
+                <span>Reports</span>
+            </li>
+            <li data-tab="settings">
+                <i class="fa-solid fa-gear"></i>
+                <span>Settings</span>
+            </li>
+            <li data-tab="logout">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Logout</span>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- ================= MAIN CONTENT ================= -->
+    <main class="main-content">
+
+        <!-- ================= TOPBAR (STATIC) ================= -->
+        <header class="topbar">
+            <div class="page-title">
+                <h2>Live Interview Monitoring</h2>
+                <span class="live-tag">
+                    <i class="fa-solid fa-circle"></i>
+                    LIVE
+                </span>
+            </div>
+            <div class="header-right d-flex align-items-center">
+                <!-- Dark Mode Toggle Button -->
+                <div class="theme-toggle" id="themeToggle" title="Toggle Theme">
+                    <i class="fa-solid fa-moon"></i>
+                </div>
+
+                <div class="timer-box d-flex align-items-center">
+                    <i class="fa-regular fa-clock me-2"></i>
+                    <span id="liveTimer" class="me-3">00:00:00</span>
+                    <div class="timer-actions btn-group">
+                        <button id="pauseTimer" class="btn btn-outline-secondary btn-sm">Pause</button>
+                        <button id="resumeTimer" class="btn btn-outline-secondary btn-sm">Resume</button>
+                        <button id="resetTimer" class="btn btn-outline-danger btn-sm">Reset</button>
+                    </div>
+                </div>
+
+                <div class="notification ms-3 me-3 position-relative">
+                    <i class="fa-solid fa-bell"></i>
+                    <span class="badge position-absolute top-0 start-100 translate-middle rounded-pill bg-danger">3</span>
+                </div>
+
+                <div class="recruiter-profile d-flex align-items-center">
+                    <img src="assets/images/recruiter.jpg" alt="Recruiter" class="rounded-circle me-2">
+                    <div>
+                        <h6>Priya Sharma</h6>
+                        <small>Senior Recruiter</small>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- ========================================================= -->
+        <!--                      TAB: DASHBOARD                       -->
+        <!-- ========================================================= -->
+        <div id="dashboard-tab" class="tab-pane active-tab">
+            
+            <!-- Welcome Hero Grid Banner -->
+            <div class="alert alert-primary bg-gradient border-0 text-white rounded-4 p-4 mb-4 d-flex align-items-center justify-content-between" style="background: linear-gradient(135deg, #2563eb, #4f46e5)">
+                <div>
+                    <h3 class="fw-bold mb-2">Welcome Back, Priya!</h3>
+                    <p class="mb-0 text-white-50">Active candidate: <strong>Rahul Kumar</strong> (Technical Round 2). No major violations flagged today.</p>
+                </div>
+                <button class="btn btn-light text-primary fw-bold px-4 py-2" onclick="document.querySelector('[data-tab=live-monitoring]').click();">
+                    <i class="fa-solid fa-video me-1"></i> Jump to Live Feed
+                </button>
+            </div>
+
+            <!-- Status Grid -->
+            <section class="status-section mt-0">
+                <div class="status-grid">
+                    <div class="status-card">
+                        <i class="fa-solid fa-circle-check text-success"></i>
+                        <h5>Interview Status</h5>
+                        <h3>Running</h3>
+                    </div>
+                    <div class="status-card">
+                        <i class="fa-solid fa-camera text-primary"></i>
+                        <h5>Proctor Camera</h5>
+                        <h3 id="cameraStatusText">Monitoring</h3>
+                    </div>
+                    <div class="status-card">
+                        <i class="fa-solid fa-microphone text-success"></i>
+                        <h5>Mic Clarity</h5>
+                        <h3>95%</h3>
+                    </div>
+                    <div class="status-card">
+                        <i class="fa-solid fa-wifi text-info"></i>
+                        <h5>Signal</h5>
+                        <h3>Excellent</h3>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Main Dashboard Panel Grid -->
+            <div class="row mt-4">
+                <!-- AI Metrics progress bars -->
+                <div class="col-lg-6">
+                    <section class="ai-monitoring mt-0 h-100">
+                        <div class="monitor-card h-100">
+                            <h4 class="mb-4"><i class="fa-solid fa-robot me-2"></i>AI Interview Analytics Summary</h4>
+                            
+                            <div class="analytics-card mb-3">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <h5 class="m-0">Confidence Level</h5>
+                                    <h5 class="m-0 text-primary fw-bold">92%</h5>
+                                </div>
+                                <div class="progress"><div class="progress-bar bg-primary" style="width: 92%"></div></div>
+                            </div>
+                            
+                            <div class="analytics-card mb-3">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <h5 class="m-0">Gaze Eye Contact</h5>
+                                    <h5 class="m-0 text-success fw-bold">89%</h5>
+                                </div>
+                                <div class="progress"><div class="progress-bar bg-success" style="width: 89%"></div></div>
+                            </div>
+                            
+                            <div class="analytics-card mb-3">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <h5 class="m-0">Speech Clarity</h5>
+                                    <h5 class="m-0 text-warning fw-bold">95%</h5>
+                                </div>
+                                <div class="progress"><div class="progress-bar bg-warning" style="width: 95%"></div></div>
+                            </div>
+
+                            <div class="analytics-card">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <h5 class="m-0">Coding Activity</h5>
+                                    <h5 class="m-0 text-danger fw-bold">88%</h5>
+                                </div>
+                                <div class="progress"><div class="progress-bar bg-danger" style="width: 88%"></div></div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Performance Chart with Tabbed Details -->
+                <div class="col-lg-6">
+                    <div class="monitor-card h-100 d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h4 class="m-0"><i class="fa-solid fa-chart-line me-2"></i>Performance Analysis</h4>
+                            <div class="btn-group btn-group-sm" role="group">
+                                <button type="button" class="btn btn-outline-primary active" id="btnLiveTrends" onclick="switchPerformanceView('trends')">Live Trends</button>
+                                <button type="button" class="btn btn-outline-primary" id="btnSkillRadar" onclick="switchPerformanceView('radar')">Skill Radar</button>
+                                <button type="button" class="btn btn-outline-primary" id="btnAiInsights" onclick="switchPerformanceView('insights')">AI Insights</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Tab 1: Live Trends (Line Chart) -->
+                        <div id="perfTrendsView" class="flex-grow-1" style="height: 240px; position: relative;">
+                            <canvas id="performanceChart"></canvas>
+                        </div>
+                        
+                        <!-- Tab 2: Skill Radar (Radar Chart) -->
+                        <div id="perfRadarView" class="flex-grow-1 d-none" style="height: 240px; position: relative;">
+                            <canvas id="skillRadarChart"></canvas>
+                        </div>
+                        
+                        <!-- Tab 3: AI Insights -->
+                        <div id="perfInsightsView" class="flex-grow-1 d-none text-start" style="overflow-y: auto; max-height: 240px; padding: 5px;">
+                            <div class="insights-container">
+                                <div class="card bg-light border-0 p-3 mb-2 rounded-3">
+                                    <div class="d-flex align-items-center justify-content-between mb-2">
+                                        <h6 class="fw-bold m-0 text-primary" style="font-size: 13px;"><i class="fa-solid fa-brain me-1"></i>Confidence & Vocal</h6>
+                                        <span class="badge bg-success" id="insightConfStatus">High (92%)</span>
+                                    </div>
+                                    <p class="small text-muted m-0" id="insightConfText" style="font-size: 12px; line-height: 1.5;">Candidate responds quickly, showing vocal consistency and robust logic structure.</p>
+                                </div>
+                                <div class="card bg-light border-0 p-3 rounded-3">
+                                    <div class="d-flex align-items-center justify-content-between mb-2">
+                                        <h6 class="fw-bold m-0 text-success" style="font-size: 13px;"><i class="fa-solid fa-eye me-1"></i>Proctor Compliance</h6>
+                                        <span class="badge bg-success" id="insightProctorStatus">Secure</span>
+                                    </div>
+                                    <p class="small text-muted m-0" id="insightProctorText" style="font-size: 12px; line-height: 1.5;">Gaze vectors are aligned with screen center. No unregistered objects or second persons detected.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Score Summary metrics -->
+            <section class="metrics-section mt-4">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="metric-card">
+                            <h6>Total Questions</h6>
+                            <h2>25</h2>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="metric-card">
+                            <h6>Answered</h6>
+                            <h2>18</h2>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="metric-card">
+                            <h6>Remaining</h6>
+                            <h2>07</h2>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="metric-card">
+                            <h6>Interview Score</h6>
+                            <h2 class="text-success">89%</h2>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Timeline and notifications list -->
+            <div class="row mt-4">
+                <div class="col-lg-6">
+                    <section class="timeline-section mt-0 h-100">
+                        <div class="timeline-card h-100">
+                            <h3><i class="fa-solid fa-clock-rotate-left me-2"></i>Live Activity Timeline</h3>
+                            <ul class="timeline">
+                                <li>
+                                    <span class="time">10:00 AM</span>
+                                    <div class="timeline-content">
+                                        <h6>Interview Started</h6>
+                                        <p>Candidate joined the interview successfully.</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="time">10:05 AM</span>
+                                    <div class="timeline-content">
+                                        <h6>Technical Questions</h6>
+                                        <p>AI started monitoring confidence and speech.</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="time">10:12 AM</span>
+                                    <div class="timeline-content">
+                                        <h6>Coding Challenge</h6>
+                                        <p>Candidate solved coding problem in progress.</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="col-lg-6">
+                    <section class="notification-section mt-0 h-100">
+                        <div class="notification-card h-100">
+                            <h3><i class="fa-solid fa-bell me-2"></i>Proctor Alerts & Notifications</h3>
+                            <div class="notification-item">
+                                <i class="fa-solid fa-circle-check text-success"></i>
+                                <span>Candidate camera connected successfully.</span>
+                            </div>
+                            <div class="notification-item">
+                                <i class="fa-solid fa-circle-info text-primary"></i>
+                                <span>AI tracking initialized and calibrated.</span>
+                            </div>
+                            <div class="notification-item">
+                                <i class="fa-solid fa-microphone text-success"></i>
+                                <span>Voice clarity detected as Excellent.</span>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- Recommendation Summary card -->
+            <section class="summary-section mt-4">
+                <div class="summary-card">
+                    <h3><i class="fa-solid fa-file-lines me-2"></i>Interview Summary Summary</h3>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="summary-box">
+                                <h4>Overall Performance</h4>
+                                <h2 class="text-success">Excellent</h2>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="summary-box">
+                                <h4>AI Recommendation</h4>
+                                <h2 class="text-primary">Recommended</h2>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="summary-box">
+                                <h4>Final Score</h4>
+                                <h2 class="text-success">89 / 100</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ========================================================= -->
+        <!--                   TAB: LIVE MONITORING                     -->
+        <!-- ========================================================= -->
+        <div id="live-monitoring-tab" class="tab-pane">
+            <div class="row">
+                
+                <!-- Candidate Video stream with proctor overlay -->
+                <div class="col-lg-7">
+                    <section class="live-session mt-0 p-0" style="display:block;">
+                        <div class="video-panel rounded-4">
+                            <div class="video-header d-flex justify-content-between align-items-center p-3 border-bottom">
+                                <h4 class="m-0"><i class="fa-solid fa-video me-2 text-primary"></i>Live Candidate Feed</h4>
+                                <span class="status-live badge bg-success">● Connected</span>
+                            </div>
+                            
+                            <div class="video-container" style="position:relative; background:#0b0f19; min-height:360px;">
+                                <!-- Live Webcam element -->
+                                <video id="candidateWebcam" autoplay playsinline style="display:none; width:100%; height:100%; border-radius: 12px;"></video>
+                                
+                                <!-- Fallback image if camera disabled -->
+                                <img src="assets/images/candidate.jpg" class="candidate-video w-100" alt="Candidate" style="border-radius:12px; max-height:420px; object-fit:cover;">
+                                
+                                <!-- Proctor Box Canvas drawing overlay -->
+                                <canvas id="proctorCanvas"></canvas>
+                                
+                                <!-- Floating camera state label -->
+                                <div class="video-overlay p-3" style="position:absolute; top:0; left:0; width:100%; z-index:8;">
+                                    <div class="camera-status d-flex gap-2">
+                                        <span class="badge bg-dark-subtle text-white p-2" id="cameraStatusOverlay">
+                                            <i class="fa-solid fa-camera-slash"></i> Camera OFF
+                                        </span>
+                                        <span class="badge bg-dark-subtle text-white p-2">
+                                            <i class="fa-solid fa-microphone"></i> Mic ON
+                                        </span>
+                                        <span class="badge bg-dark-subtle text-white p-2 text-success">
+                                            <i class="fa-solid fa-wifi"></i> Strong Signal
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <!-- Floating small picture-in-picture recruiter feed -->
+                                <div class="small-video" style="position:absolute; bottom:20px; right:20px; width:100px; height:75px; border-radius:8px; border:2px solid white; overflow:hidden; z-index:10; box-shadow:0 8px 15px rgba(0,0,0,0.3)">
+                                    <img src="assets/images/recruiter.jpg" alt="Recruiter" class="w-100 h-100" style="object-fit:cover;">
+                                </div>
+
+                                <!-- Speech Captions -->
+                                <div id="liveTranscript" class="live-transcript-bar">
+                                    [Listening for spoken responses...]
+                                </div>
+                            </div>
+                            
+                            <div class="video-controls d-flex justify-content-between p-3 border-top bg-light">
+                                <div class="btn-group">
+                                    <button class="btn btn-outline-success" onclick="triggerSimulatedAnomaly('mic');">
+                                        <i class="fa-solid fa-microphone"></i> Mic Toggle
+                                    </button>
+                                    <button class="btn btn-primary" id="toggleCameraBtn">
+                                        <i class="fa-solid fa-camera"></i> Camera
+                                    </button>
+                                </div>
+                                <div class="btn-group">
+                                    <!-- Toggle mock code editor -->
+                                    <button class="btn btn-warning text-white" onclick="document.getElementById('liveCodingPanel').classList.toggle('d-none');">
+                                        <i class="fa-solid fa-code"></i> Toggle IDE
+                                    </button>
+                                    <button class="btn btn-danger" onclick="createToast('Interview session ended by proctor.', 'danger'); addTimelineEvent('System', 'Interview terminated.', true);">
+                                        <i class="fa-solid fa-phone-slash"></i> End Session
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Live Code Editor Component -->
+                    <div class="code-editor-panel d-none" id="liveCodingPanel">
+                        <div class="code-editor-header">
+                            <div class="editor-title">
+                                <i class="fa-solid fa-code text-warning"></i>
+                                <span>Rahul's Shared Workspace - Live Typing Stream</span>
+                            </div>
+                            <div class="editor-dots">
+                                <div class="editor-dot red"></div>
+                                <div class="editor-dot yellow"></div>
+                                <div class="editor-dot green"></div>
+                            </div>
+                        </div>
+                        <div class="code-editor-body" id="codeEditorBody">
+                            // Loading code stream...
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live AI Proctor metrics & Simulator tools -->
+                <div class="col-lg-5">
+                    
+                    <!-- AI Monitoring Status Table -->
+                    <div class="monitor-card p-4 rounded-4 mb-4">
+                        <h4 class="mb-3 text-primary"><i class="fa-solid fa-wave-square me-2"></i>Live AI Proctoring Board</h4>
+                        <table class="table table-hover borderless">
+                            <tbody>
+                                <tr>
+                                    <td>Emotion Estimation</td>
+                                    <td><span class="badge bg-success" id="emotionVal">😊 Happy</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Stress Index</td>
+                                    <td><span class="badge bg-success" id="stressLevelVal">Low</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Speaking Pace</td>
+                                    <td><span id="speakSpeedVal">Normal</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Voice Tone</td>
+                                    <td><span id="voiceToneVal">Confident</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Camera Presence</td>
+                                    <td><span class="text-success" id="faceDetectVal">Detected</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Tab Switching Events</td>
+                                    <td><span class="text-success" id="tabSwitchVal">None</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold">Cheating Suspected</td>
+                                    <td><span class="badge bg-success" id="cheatingRiskVal">Very Low</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Proctoring Simulator Card (Interactive Control Panel) -->
+                    <div class="proctor-sim-card rounded-4">
+                        <h4><i class="fa-solid fa-triangle-exclamation me-2"></i>Recruiter Proctor Simulator</h4>
+                        <p class="text-muted small">Trigger candidate proctoring violations to test the AI's real-time detection alerts, score penalties, and warnings.</p>
+                        
+                        <div class="proctor-sim-grid">
+                            <button class="btn btn-outline-warning btn-sim" onclick="triggerSimulatedAnomaly('tab');">
+                                <i class="fa-solid fa-window-restore"></i> Tab Switch
+                            </button>
+                            <button class="btn btn-outline-warning btn-sim" onclick="triggerSimulatedAnomaly('gaze');">
+                                <i class="fa-solid fa-eye-slash"></i> Look Away
+                            </button>
+                            <button class="btn btn-outline-danger btn-sim" onclick="triggerSimulatedAnomaly('faces');">
+                                <i class="fa-solid fa-user-group"></i> Multiple Faces
+                            </button>
+                            <button class="btn btn-outline-danger btn-sim" onclick="triggerSimulatedAnomaly('facelost');">
+                                <i class="fa-solid fa-video-slash"></i> Face Lost
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Candidate general details -->
+                    <div class="candidate-card mt-4">
+                        <div class="candidate-header">
+                            <img src="assets/images/candidate.jpg" alt="Candidate">
+                            <div>
+                                <h3>Rahul Kumar</h3>
+                                <p class="mb-0">Candidate ID: <strong>AI-2026-101</strong></p>
+                                <span class="badge bg-primary">Technical Round 2</span>
+                            </div>
+                        </div>
+                        <div class="candidate-info">
+                            <div class="info-item">
+                                <strong>Experience</strong>
+                                <span>3 Years</span>
+                            </div>
+                            <div class="info-item">
+                                <strong>Target Role</strong>
+                                <span>Full Stack Developer</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Question changer -->
+                        <div class="question-card mt-3">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h5 class="m-0 text-primary fw-bold">Active Question</h5>
+                                <select class="form-select form-select-sm w-auto" id="questionSelect" onchange="proctorState.activeQuestionKey = this.value; document.getElementById('questionText').innerHTML = this.options[this.selectedIndex].getAttribute('data-text'); startCodeStream(this.value); createToast('Question updated. Candidate editor updated.', 'info');">
+                                    <option value="multithreading" data-text="Explain the difference between multithreading and multiprocessing. Also describe a real-world use case where multithreading is preferred.">Multithreading (Java/Node)</option>
+                                    <option value="reactHooks" data-text="Describe the lifecycle of a React functional component. Write a custom hook that tracks the previous value of a prop.">React Lifecycle & Hook</option>
+                                    <option value="binarySearch" data-text="Implement binary search algorithm in JavaScript. Discuss the time complexity of searching an element in sorted array.">Binary Search Algorithm</option>
+                                </select>
+                            </div>
+                            <p id="questionText" class="small m-0">Explain the difference between multithreading and multiprocessing. Also describe a real-world use case where multithreading is preferred.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ========================================================= -->
+        <!--                     TAB: CANDIDATES                       -->
+        <!-- ========================================================= -->
+        <div id="candidates-tab" class="tab-pane">
+            <h3 class="fw-bold mb-4"><i class="fa-solid fa-users me-2"></i>Candidate Database Directory</h3>
+            
+            <div class="search-filter-row">
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="candidateSearch" placeholder="Search by name or target role...">
+                </div>
+                <select class="filter-select" id="candidateFilter">
+                    <option value="all">All Statuses</option>
+                    <option value="Recommended">Recommended</option>
+                    <option value="Pending">Pending Review</option>
+                    <option value="Violation">Flagged</option>
+                </select>
+            </div>
+
+            <div class="candidates-table-card">
+                <table class="candidates-table">
+                    <thead>
+                        <tr>
+                            <th>Candidate Details</th>
+                            <th>Target Position</th>
+                            <th>Proctor Status</th>
+                            <th>AI Score</th>
+                            <th>Interview Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="candidatesTableBody">
+                        <tr>
+                            <td>
+                                <div class="avatar-info">
+                                    <img src="assets/images/candidate.jpg" alt="Rahul Kumar">
+                                    <div>
+                                        <h6 class="mb-0 fw-bold">Rahul Kumar</h6>
+                                        <small class="text-muted">rahul@gmail.com</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>Full Stack Developer</td>
+                            <td><span class="badge bg-success">Recommended</span></td>
+                            <td class="fw-bold text-success">89%</td>
+                            <td>Today, 10:00 AM</td>
+                            <td>
+                                <button class="btn btn-outline-primary btn-sm" onclick="document.querySelector('[data-tab=live-monitoring]').click();">Monitor</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="avatar-info">
+                                    <img src="assets/images/recruiter.jpg" alt="Anya Sen">
+                                    <div>
+                                        <h6 class="mb-0 fw-bold">Anya Sen</h6>
+                                        <small class="text-muted">anya@outlook.com</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>React Front End Developer</td>
+                            <td><span class="badge bg-warning text-white">Pending</span></td>
+                            <td class="fw-bold text-warning">76%</td>
+                            <td>Yesterday, 2:30 PM</td>
+                            <td>
+                                <button class="btn btn-outline-secondary btn-sm" onclick="createToast('Viewing archived record.', 'info');">Review Log</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="avatar-info">
+                                    <img src="assets/images/interview.jpg" alt="Vikram Singh" style="width: 44px; height: 44px; border-radius: 50%; object-fit: cover;">
+                                    <div>
+                                        <h6 class="mb-0 fw-bold">Vikram Singh</h6>
+                                        <small class="text-muted">vikram@yahoo.com</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>System Architect</td>
+                            <td><span class="badge bg-danger">Violation Flagged</span></td>
+                            <td class="fw-bold text-danger">42%</td>
+                            <td>25 Jun 2026</td>
+                            <td>
+                                <button class="btn btn-outline-danger btn-sm" onclick="createToast('3 tab switches & eye contact anomalies logged.', 'danger');">View Flags</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ========================================================= -->
+        <!--                     TAB: INTERVIEWS                       -->
+        <!-- ========================================================= -->
+        <div id="interviews-tab" class="tab-pane">
+            <h3 class="fw-bold mb-4"><i class="fa-solid fa-calendar-days me-2"></i>Interview Schedule Manager</h3>
+            
+            <div class="row">
+                <!-- Schedule form -->
+                <div class="col-lg-5">
+                    <div class="scheduler-card">
+                        <h4 class="mb-4 text-primary"><i class="fa-solid fa-calendar-plus me-2"></i>Book New Session</h4>
+                        <form id="interviewSchedulerForm">
+                            <div class="form-group mb-3">
+                                <label for="schedName">Candidate Name</label>
+                                <input type="text" id="schedName" placeholder="E.g. Vikramaditya Dev" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="schedEmail">Email Address</label>
+                                <input type="email" id="schedEmail" placeholder="E.g. dev@gmail.com" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="schedTime">Scheduled Date & Time</label>
+                                <input type="datetime-local" id="schedTime" required>
+                            </div>
+                            <div class="form-group mb-4">
+                                <label for="schedRole">Target Position</label>
+                                <select id="schedRole">
+                                    <option value="Software Engineer">Software Engineer</option>
+                                    <option value="Front End Engineer">Front End Engineer</option>
+                                    <option value="QA Lead">QA Lead</option>
+                                    <option value="DevOps Consultant">DevOps Consultant</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100 py-3 rounded-3 fw-bold">Schedule Interview Session</button>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- Upcoming list -->
+                <div class="col-lg-7">
+                    <div class="monitor-card h-100">
+                        <h4 class="mb-3 text-success"><i class="fa-regular fa-clock me-2"></i>Upcoming Scheduled Roundups</h4>
+                        
+                        <div class="upcoming-list" id="upcomingInterviewsList">
+                            <div class="upcoming-item">
+                                <div class="upcoming-details">
+                                    <h5>Tanvi Sharma</h5>
+                                    <p><i class="fa-solid fa-briefcase"></i> Junior UI/UX Designer | <i class="fa-regular fa-clock"></i> Tomorrow, 11:30 AM</p>
+                                    <p><i class="fa-regular fa-envelope"></i> tanvi.design@gmail.com</p>
+                                </div>
+                                <span class="badge bg-primary">Scheduled</span>
+                            </div>
+                            <div class="upcoming-item">
+                                <div class="upcoming-details">
+                                    <h5>Kabir Mehta</h5>
+                                    <p><i class="fa-solid fa-briefcase"></i> Python Dev Lead | <i class="fa-regular fa-clock"></i> 29 Jun, 4:00 PM</p>
+                                    <p><i class="fa-regular fa-envelope"></i> kabir.mehta@yahoo.com</p>
+                                </div>
+                                <span class="badge bg-primary">Scheduled</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================================= -->
+        <!--                      TAB: ANALYTICS                       -->
+        <!-- ========================================================= -->
+        <div id="analytics-tab" class="tab-pane">
+            <h3 class="fw-bold mb-4"><i class="fa-solid fa-chart-line me-2"></i>Aggregated Proctor Analytics</h3>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="monitor-card p-4 rounded-4 mb-4">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h4 class="m-0 text-primary">Proctor Flags & Detection Trends (Last 30 Days)</h4>
+                            <button class="btn btn-outline-primary btn-sm" onclick="createToast('Analytics raw CSV downloaded.', 'success');"><i class="fa-solid fa-download me-1"></i> Export Data</button>
+                        </div>
+                        <div style="height: 380px;">
+                            <canvas id="historicalTrendsChart" style="width:100%; height:100%;"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="monitor-card p-4 rounded-4">
+                        <h4 class="mb-3">Historical Violation Breakdown</h4>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Event Flag</th>
+                                    <th>Occurrences</th>
+                                    <th>AI Weight Score</th>
+                                    <th>Status Severity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Off-Screen Gaze Direction</td>
+                                    <td>124 times</td>
+                                    <td class="fw-bold">15% impact</td>
+                                    <td><span class="badge bg-warning">Low</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Browser Tab Switches</td>
+                                    <td>84 times</td>
+                                    <td class="fw-bold">45% impact</td>
+                                    <td><span class="badge bg-danger">High</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Second Person Detected</td>
+                                    <td>12 times</td>
+                                    <td class="fw-bold">90% impact</td>
+                                    <td><span class="badge bg-danger">Critical</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="monitor-card p-4 rounded-4">
+                        <h4 class="mb-3">AI Model Precision</h4>
+                        <p class="text-muted">Current tracking models are running on TensorFlow.js for local computer vision proctor scanning.</p>
+                        <ul>
+                            <li>Face Mesh Precision: <strong>99.4%</strong></li>
+                            <li>Gaze Estimation Drift: <strong>&lt; 3° arc</strong></li>
+                            <li>Emotion Detection Confidence: <strong>91.2%</strong></li>
+                            <li>Hardware latency: <strong>~12ms scan cycle</strong></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================================= -->
+        <!--                       TAB: REPORTS                        -->
+        <!-- ========================================================= -->
+        <div id="reports-tab" class="tab-pane">
+            <h3 class="fw-bold mb-4"><i class="fa-solid fa-file-lines me-2"></i>Report Archiving Center</h3>
+            
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="summary-box p-4 rounded-4 text-center">
+                        <i class="fa-solid fa-file-pdf text-danger mb-3" style="font-size: 54px;"></i>
+                        <h4 class="fw-bold">Rahul Kumar - Transcript</h4>
+                        <p class="text-muted small">Comprehensive proctor event logs, code history snapshots, and average speech clarity levels.</p>
+                        <button class="btn btn-danger w-100" onclick="createToast('PDF Report generated for Rahul Kumar', 'success');">Download Report</button>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="summary-box p-4 rounded-4 text-center">
+                        <i class="fa-solid fa-file-pdf text-danger mb-3" style="font-size: 54px;"></i>
+                        <h4 class="fw-bold">Anya Sen - Transcript</h4>
+                        <p class="text-muted small">Comprehensive proctor event logs, code history snapshots, and average speech clarity levels.</p>
+                        <button class="btn btn-danger w-100" onclick="createToast('PDF Report generated for Anya Sen', 'success');">Download Report</button>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="summary-box p-4 rounded-4 text-center">
+                        <i class="fa-solid fa-file-pdf text-danger mb-3" style="font-size: 54px;"></i>
+                        <h4 class="fw-bold">Vikram Singh - Flagged</h4>
+                        <p class="text-muted small text-danger">Warning: High proctor risk flags present. Verification needed before review completion.</p>
+                        <button class="btn btn-outline-danger w-100" onclick="createToast('Flagged logs PDF generated.', 'warning');">Download Logs</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================================= -->
+        <!--                       TAB: SETTINGS                       -->
+        <!-- ========================================================= -->
+        <div id="settings-tab" class="tab-pane">
+            <h3 class="fw-bold mb-4"><i class="fa-solid fa-gear me-2"></i>AI Proctor & System Configurations</h3>
+            
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="monitor-card p-4 rounded-4 mb-4">
+                        <h4 class="mb-4 text-primary"><i class="fa-solid fa-sliders me-2"></i>Proctor Sensitivity Thresholds</h4>
+                        
+                        <div class="settings-slider-group">
+                            <div class="settings-slider-header">
+                                <span>Eye Contact Deviation Tolerance</span>
+                                <span class="slider-val" id="eyeValLabel">1.5s</span>
+                            </div>
+                            <input type="range" min="0.5" max="5.0" step="0.5" value="1.5" oninput="document.getElementById('eyeValLabel').innerText = this.value + 's';">
+                        </div>
+
+                        <div class="settings-slider-group">
+                            <div class="settings-slider-header">
+                                <span>Tab Switch Timeout Limit</span>
+                                <span class="slider-val" id="tabValLabel">3.0s</span>
+                            </div>
+                            <input type="range" min="1" max="10" step="1" value="3" oninput="document.getElementById('tabValLabel').innerText = this.value + 's';">
+                        </div>
+
+                        <div class="settings-slider-group mb-4">
+                            <div class="settings-slider-header">
+                                <span>Disqualification Risk Level</span>
+                                <span class="slider-val" id="riskValLabel">70%</span>
+                            </div>
+                            <input type="range" min="50" max="95" step="5" value="70" oninput="document.getElementById('riskValLabel').innerText = this.value + '%';">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="monitor-card p-4 rounded-4">
+                        <h4 class="mb-4 text-success"><i class="fa-solid fa-shield-halved me-2"></i>Security Policy Rules</h4>
+                        
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" type="checkbox" id="alarmToggle" checked onchange="createToast('Audio warning alert toggle updated.', 'info');">
+                            <label class="form-check-input-label fw-bold" for="alarmToggle">Trigger acoustic alarm on violations</label>
+                            <p class="text-muted small m-0">Plays a soft beep to remind candidate of eye gaze shifts or tab switching.</p>
+                        </div>
+                        
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" type="checkbox" id="autoDisqualifyToggle" onchange="createToast('Auto disqualification settings updated.', 'warning');">
+                            <label class="form-check-input-label fw-bold" for="autoDisqualifyToggle">Auto-terminate session on high risk</label>
+                            <p class="text-muted small m-0">Automatically locks browser workspace if cheating score goes above threshold.</p>
+                        </div>
+
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="watermarkToggle" checked onchange="createToast('Cam overlay metadata toggled.', 'info');">
+                            <label class="form-check-input-label fw-bold" for="watermarkToggle">Burn monitoring metadata on recorded video</label>
+                            <p class="text-muted small m-0">Watermarks FPS, face mesh coordinate streams directly on backup logs.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+<!-- ========================================================= -->
+<!--                        FOOTER                             -->
+<!-- ========================================================= -->
+<footer class="footer text-center mt-4 mb-3">
+    <p>© 2026 AI Live Interview Monitoring Dashboard | Designed for Recruiters | Fully Interactive Proctor Board</p>
+</footer>
+
+<!-- ========================================================= -->
+<!--                    JAVASCRIPT FILES                       -->
+<!-- ========================================================= -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/app.js"></script>
+<script src="js/editor-stream.js"></script>
+<script src="js/live-status.js"></script>
+<script src="js/timer.js"></script>
+<script src="js/charts.js"></script>
+
+<!-- Script to initialize secondary chart inside analytics tab -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const ctx = document.getElementById('historicalTrendsChart');
+    if (!ctx) return;
+    
+    new Chart(ctx.getContext('2d'), {
+        type: 'bar',
+        data: {
+            labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+            datasets: [{
+                label: 'Tab Switches Detected',
+                data: [25, 32, 12, 15],
+                backgroundColor: 'rgba(245, 158, 11, 0.7)',
+                borderColor: '#f59e0b',
+                borderWidth: 1
+            }, {
+                label: 'Eye Contact Loss Warnings',
+                data: [42, 38, 24, 20],
+                backgroundColor: 'rgba(37, 99, 235, 0.7)',
+                borderColor: '#2563eb',
+                borderWidth: 1
+            }, {
+                label: 'Critical Face Loss Alerts',
+                data: [5, 3, 2, 2],
+                backgroundColor: 'rgba(239, 68, 68, 0.7)',
+                borderColor: '#ef4444',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+});
+</script>
+</body>
+
+</html>

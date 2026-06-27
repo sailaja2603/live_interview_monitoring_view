@@ -1,0 +1,462 @@
+/*=========================================================
+        DASHBOARD.CSS
+        Live Interview Monitoring Dashboard
+=========================================================*/
+
+/*==============================
+Dashboard Background
+==============================*/
+
+.main-content{
+
+    background:#f5f7fb;
+
+}
+
+/*==============================
+Dashboard Header
+==============================*/
+
+.topbar{
+
+    background:linear-gradient(135deg,#ffffff,#f8fbff);
+
+    border:1px solid #e8eef8;
+
+}
+
+.page-title h2{
+
+    letter-spacing:.5px;
+
+}
+
+.live-tag{
+
+    font-weight:700;
+
+    letter-spacing:1px;
+
+}
+
+/*==============================
+Video Panel
+==============================*/
+
+.video-panel{
+
+    overflow:hidden;
+
+    position:relative;
+
+}
+
+.video-panel::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+
+    left:0;
+
+    width:100%;
+
+    height:5px;
+
+    background:linear-gradient(
+        90deg,
+        #2563eb,
+        #06b6d4,
+        #22c55e
+    );
+
+}
+
+.video-container{
+
+    background:#0f172a;
+
+}
+
+.candidate-video{
+
+    transition:.5s;
+
+}
+
+.video-panel:hover .candidate-video{
+
+    transform:scale(1.02);
+
+}
+
+/*==============================
+Video Header
+==============================*/
+
+.video-header{
+
+    background:#ffffff;
+
+}
+
+.video-header h4{
+
+    color:#1e293b;
+
+}
+
+.status-live{
+
+    font-size:13px;
+
+    font-weight:600;
+
+}
+
+/*==============================
+Small Recruiter Video
+==============================*/
+
+.small-video{
+
+    border:3px solid #ffffff;
+
+}
+
+.small-video img{
+
+    transition:.4s;
+
+}
+
+.small-video:hover img{
+
+    transform:scale(1.08);
+
+}
+
+/*==============================
+Video Controls
+==============================*/
+
+.video-controls{
+
+    background:#ffffff;
+
+}
+
+.video-controls .btn{
+
+    min-width:120px;
+
+    font-weight:600;
+
+    border-radius:12px;
+
+}
+
+.video-controls .btn:hover{
+
+    transform:translateY(-3px);
+
+}
+
+/*==============================
+Section Titles
+==============================*/
+
+.section-title{
+
+    border-left:6px solid #2563eb;
+
+    padding-left:15px;
+
+}
+
+.section-title h3{
+
+    margin:0;
+
+}
+
+/*==============================
+Dashboard Cards
+==============================*/
+
+.analytics-card,
+.monitor-card,
+.metric-card,
+.summary-card,
+.timeline-card,
+.notification-card,
+.video-panel{
+
+    border:1px solid #edf2f7;
+
+}
+
+/*==============================
+Card Hover
+==============================*/
+
+.analytics-card:hover,
+.monitor-card:hover,
+.metric-card:hover,
+.timeline-card:hover,
+.notification-card:hover,
+.summary-card:hover{
+
+    border-color:#2563eb;
+
+}
+
+/*==============================
+Statistics Numbers
+==============================*/
+
+.metric-card h2{
+
+    font-size:38px;
+
+    color:#2563eb;
+
+}
+
+/*==============================
+Icons
+==============================*/
+
+.card-icon{
+
+    box-shadow:0 10px 25px rgba(37,99,235,.25);
+
+}
+
+/*==============================
+Progress
+==============================*/
+
+.progress{
+
+    background:#edf2f7;
+
+}
+
+.progress-bar{
+
+    transition:width 1s;
+
+}
+
+/*==============================
+Status Badges
+==============================*/
+
+.badge{
+
+    font-weight:600;
+
+}
+
+/*==============================
+Table
+==============================*/
+
+.monitor-card table{
+
+    width:100%;
+
+}
+
+.monitor-card td:first-child{
+
+    color:#64748b;
+
+    width:50%;
+
+}
+
+.monitor-card td:last-child{
+
+    text-align:right;
+
+    font-weight:600;
+
+}
+
+/*==============================
+Timeline
+==============================*/
+
+.timeline-content{
+
+    transition:.3s;
+
+}
+
+.timeline-content:hover{
+
+    background:#dbeafe;
+
+}
+
+/*==============================
+Notification
+==============================*/
+
+.notification-item{
+
+    border-left:5px solid #2563eb;
+
+}
+
+/*==============================
+Summary
+==============================*/
+
+.summary-box{
+
+    height:100%;
+
+}
+
+.summary-box h2{
+
+    color:#2563eb;
+
+}
+
+/*==============================
+Footer
+==============================*/
+
+.footer{
+
+    border-top:1px solid #e5e7eb;
+
+    background:#ffffff;
+
+}
+
+/*==============================
+Loading Animation
+==============================*/
+
+@keyframes floatCard{
+
+    0%{
+
+        transform:translateY(0);
+
+    }
+
+    50%{
+
+        transform:translateY(-6px);
+
+    }
+
+    100%{
+
+        transform:translateY(0);
+
+    }
+
+}
+
+.analytics-card:nth-child(1){
+
+    animation:floatCard 4s infinite;
+
+}
+
+.analytics-card:nth-child(2){
+
+    animation:floatCard 5s infinite;
+
+}
+
+.analytics-card:nth-child(3){
+
+    animation:floatCard 6s infinite;
+
+}
+
+.analytics-card:nth-child(4){
+
+    animation:floatCard 7s infinite;
+
+}
+
+/*==============================
+Glass Effect
+==============================*/
+
+.glass-card{
+
+    background:rgba(255,255,255,.45);
+
+    backdrop-filter:blur(15px);
+
+    border:1px solid rgba(255,255,255,.4);
+
+    border-radius:20px;
+
+}
+
+/*==============================
+Gradient Buttons
+==============================*/
+
+.btn-primary{
+
+    background:linear-gradient(
+        135deg,
+        #2563eb,
+        #4f46e5
+    );
+
+    border:none;
+
+}
+
+.btn-success{
+
+    border:none;
+
+}
+
+.btn-danger{
+
+    border:none;
+
+}
+
+.btn-warning{
+
+    border:none;
+
+}
+
+/*==============================
+Responsive Grid Helpers
+==============================*/
+
+.analytics-grid{
+
+    align-items:stretch;
+
+}
+
+.row{
+
+    row-gap:25px;
+
+}
+
+/*==============================
+Dashboard End
+==============================*/

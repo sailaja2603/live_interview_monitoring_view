@@ -1,0 +1,13 @@
+{
+  "name": "live-interview-monitoring",
+  "version": "1.0.0",
+  "description": "AI Live Interview Monitoring Dashboard",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx http-server -p 8080"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}

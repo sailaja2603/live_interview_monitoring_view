@@ -1,0 +1,400 @@
+/*=========================================================
+                STATUS.CSS
+        Live Interview Status & AI Monitoring
+=========================================================*/
+
+/*=========================================================
+                Status Section
+=========================================================*/
+
+.status-section{
+    margin-top:30px;
+}
+
+.status-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+}
+
+/*=========================================================
+                Status Card
+=========================================================*/
+
+.status-card{
+
+    background:#ffffff;
+    border-radius:18px;
+    padding:25px;
+    text-align:center;
+    border:1px solid #e5e7eb;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+    transition:.35s;
+
+}
+
+.status-card:hover{
+
+    transform:translateY(-8px);
+    box-shadow:0 20px 40px rgba(37,99,235,.18);
+
+}
+
+.status-card i{
+
+    font-size:42px;
+    margin-bottom:18px;
+
+}
+
+.status-card h5{
+
+    font-size:16px;
+    color:#64748b;
+    margin-bottom:12px;
+
+}
+
+.status-card h3{
+
+    font-size:24px;
+    font-weight:700;
+    color:#0f172a;
+
+}
+
+/*=========================================================
+                Status Colors
+=========================================================*/
+
+.status-online{
+    color:#22c55e;
+}
+
+.status-warning{
+    color:#f59e0b;
+}
+
+.status-danger{
+    color:#ef4444;
+}
+
+.status-info{
+    color:#2563eb;
+}
+
+/*=========================================================
+                Live Indicator
+=========================================================*/
+
+.live-dot{
+
+    width:14px;
+    height:14px;
+    background:#22c55e;
+    border-radius:50%;
+    display:inline-block;
+    margin-right:8px;
+    animation:livePulse 1.3s infinite;
+
+}
+
+@keyframes livePulse{
+
+    0%{
+        box-shadow:0 0 0 0 rgba(34,197,94,.7);
+    }
+
+    70%{
+        box-shadow:0 0 0 14px rgba(34,197,94,0);
+    }
+
+    100%{
+        box-shadow:0 0 0 0 rgba(34,197,94,0);
+    }
+
+}
+
+/*=========================================================
+                AI Monitoring
+=========================================================*/
+
+.ai-monitoring{
+
+    margin-top:35px;
+
+}
+
+.analytics-grid{
+
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:20px;
+
+}
+
+.analytics-card{
+
+    background:#ffffff;
+    border-radius:18px;
+    padding:22px;
+    border:1px solid #e5e7eb;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+    transition:.35s;
+
+}
+
+.analytics-card:hover{
+
+    transform:translateY(-6px);
+
+}
+
+.analytics-card h5{
+
+    color:#64748b;
+    margin-bottom:10px;
+
+}
+
+.analytics-card h2{
+
+    color:#2563eb;
+    font-size:34px;
+    margin-bottom:18px;
+
+}
+
+/*=========================================================
+                Progress Bars
+=========================================================*/
+
+.analytics-card .progress{
+
+    height:12px;
+    border-radius:30px;
+    overflow:hidden;
+    background:#e5e7eb;
+
+}
+
+.analytics-card .progress-bar{
+
+    border-radius:30px;
+    transition:width .8s ease;
+
+}
+
+/*=========================================================
+                AI Status Table
+=========================================================*/
+
+.monitor-card{
+
+    background:#ffffff;
+    border-radius:18px;
+    padding:25px;
+    border:1px solid #e5e7eb;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+}
+
+.monitor-card h4{
+
+    color:#2563eb;
+    margin-bottom:25px;
+    font-weight:700;
+
+}
+
+.monitor-card table{
+
+    width:100%;
+
+}
+
+.monitor-card td{
+
+    padding:12px 0;
+    border-bottom:1px solid #edf2f7;
+
+}
+
+.monitor-card tr:last-child td{
+
+    border-bottom:none;
+
+}
+
+/*=========================================================
+                Badges
+=========================================================*/
+
+.monitor-card .badge{
+
+    padding:8px 14px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:600;
+
+}
+
+/*=========================================================
+                Metric Cards
+=========================================================*/
+
+.metrics-section{
+
+    margin-top:35px;
+
+}
+
+.metric-card{
+
+    background:#ffffff;
+    border-radius:18px;
+    padding:25px;
+    text-align:center;
+    border:1px solid #e5e7eb;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+    transition:.35s;
+
+}
+
+.metric-card:hover{
+
+    transform:translateY(-6px);
+
+}
+
+.metric-card h6{
+
+    color:#64748b;
+    margin-bottom:10px;
+
+}
+
+.metric-card h2{
+
+    font-size:36px;
+    font-weight:700;
+    color:#2563eb;
+
+}
+
+/*=========================================================
+                Performance Chart
+=========================================================*/
+
+#performanceChart{
+
+    width:100%;
+    max-width:100%;
+    height:280px;
+
+}
+
+/*=========================================================
+                AI Icons
+=========================================================*/
+
+.card-icon{
+
+    width:70px;
+    height:70px;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin:auto;
+    margin-bottom:18px;
+    color:#ffffff;
+    font-size:28px;
+
+}
+
+/*=========================================================
+                Status Chips
+=========================================================*/
+
+.status-chip{
+
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 16px;
+    border-radius:25px;
+    font-size:13px;
+    font-weight:600;
+    color:#ffffff;
+
+}
+
+.status-chip.success{
+
+    background:#22c55e;
+
+}
+
+.status-chip.warning{
+
+    background:#f59e0b;
+
+}
+
+.status-chip.danger{
+
+    background:#ef4444;
+
+}
+
+.status-chip.info{
+
+    background:#2563eb;
+
+}
+
+/*=========================================================
+                AI Score Box
+=========================================================*/
+
+.score-box{
+
+    background:linear-gradient(135deg,#2563eb,#4f46e5);
+    color:#ffffff;
+    border-radius:18px;
+    padding:25px;
+    text-align:center;
+    box-shadow:0 15px 35px rgba(37,99,235,.25);
+
+}
+
+.score-box h5{
+
+    margin-bottom:12px;
+
+}
+
+.score-box h2{
+
+    font-size:42px;
+    font-weight:700;
+
+}
+
+/*=========================================================
+                Glass Card
+=========================================================*/
+
+.glass-card{
+
+    background:rgba(255,255,255,.35);
+    backdrop-filter:blur(12px);
+    border:1px solid rgba(255,255,255,.4);
+    border-radius:20px;
+
+}
+
+/*=========================================================
+                End of status.css
+=========================================================*/
